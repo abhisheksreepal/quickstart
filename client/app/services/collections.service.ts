@@ -1,0 +1,54 @@
+import {Injectable} from '@angular/core';
+import {Collection} from '../models/Collections';
+import { Http,Response } from '@angular/http';
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+
+@Injectable()
+export class CollectionsService {
+
+    private collectionsUrl = 'http://localhost:8090/collections';
+
+
+    constructor(private http: Http){
+
+    }
+   
+    getCollections(): Observable<Collection[]> {
+        return this.http.get(this.collectionsUrl)
+              .map(this.extractData)
+              .catch(this.handleError);
+    }
+
+     private extractData(res: Response) {
+       let body = res.json();
+       let collections: Collection[] = [];
+       console.log("BODY - "+body);
+       body.forEach((element: string) => {
+           let collection = new Collection()
+           collection.name = element;
+          console.log(`INserting  element to collection -- ${element}`)
+           collections.push(collection);
+
+       });
+      return collections || [];
+  }
+
+  private handleError (error: Response | any) {
+    // In a real world app, you might use a remote logging infrastructure
+    let errMsg: string;
+    if (error instanceof Response) {
+      const body = error.json() || '';
+      const err = body.error || JSON.stringify(body);
+      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
+    }
+    console.error(errMsg);
+    return Observable.throw(errMsg);
+  }
+
+
+}
