@@ -11,7 +11,6 @@ export class CollectionsService {
 
     private collectionsUrl = 'http://localhost:8090/collections';
 
-
     constructor(private http: Http){
 
     }
@@ -21,6 +20,25 @@ export class CollectionsService {
               .map(this.extractData)
               .catch(this.handleError);
     }
+
+
+    getRuns(collection: String): Observable<Number[]> {
+        return this.http.get(this.collectionsUrl+"/"+collection+"/runs")
+              .map(this.extractRuns)
+              .catch(this.handleError);
+    }
+
+     private extractRuns(res: Response) {
+       let body = res.json();
+       let collections: Number[] = [];
+       console.log("BODY - "+body);
+       body.forEach((element: number) => {
+          console.log(`INserting  number to collection -- ${element}`)
+           collections.push(element);
+
+       });
+      return collections || [];
+  }
 
      private extractData(res: Response) {
        let body = res.json();

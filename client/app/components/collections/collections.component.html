@@ -1,6 +1,6 @@
 <h3>List of Projects</h3>
 <div class="grid grid-pad">
-  <a *ngFor="let collection of collections"  class="col-1-4">
+  <a *ngFor="let collection of collections" (click)="onSelect(collection)" class="col-1-4">
     <div class="module collection">
       <h4>{{collection.name | uppercase}}</h4>
     </div>

@@ -14,10 +14,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToolBarComponent } from './components/toolbar/toolbar.component';
 import {CollectionsComponents} from './components/collections/collections.component';
 import {CollectionsService} from './services/collections.service';
+import {CollectionsDetailComponent} from './components/collectionsDetail/collections-detail.component';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, AppRoutingModule, MaterialModule.forRoot(), BrowserAnimationsModule,HttpModule ],
-  declarations: [ AppComponent, HeroDetailComponent , HeroesComponent, DashboardComponent, PageNotFoundComponent, ToolBarComponent ,CollectionsComponents],
+  declarations: [ AppComponent, HeroDetailComponent , HeroesComponent, DashboardComponent, PageNotFoundComponent, ToolBarComponent ,CollectionsComponents,CollectionsDetailComponent],
   bootstrap:    [ AppComponent ],
   providers: [ HeroService,CollectionsService ]
 

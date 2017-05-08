@@ -31,10 +31,11 @@ h4 {
   padding: 20px;
   text-align: center;
   color: #eee;
-  max-height: 120px;
-  min-width: 120px;
+  max-height: 100px;
+  min-width: 100px;
   background-color: #A9A9A9;
-  border-radius: 2px;
+  border-radius: 50px;
+  word-wrap: break-word;
 }
 .module:hover {
   background-color: #EEE;

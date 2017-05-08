@@ -28,5 +28,10 @@ export class CollectionsComponents implements OnInit {
     
   }
 
+   onSelect(collection: Collection): void {
+    this.selectedCollection = collection;
+    this.router.navigate(["/collectionDetail",this.selectedCollection.name]);
+}
+
  
 }

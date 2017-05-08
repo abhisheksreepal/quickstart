@@ -1,13 +1,14 @@
-<h2>List Of Runs</h2>
-     <div *ngIf="selectedRun">
-      <h2>
-      {{selectedRun.name | uppercase}} Run!
-    </h2>
-      <button (click)="gotoDetail()">View Details</button>
-    </div>
+<h2>List of Runs</h2>
+
+   <div *ngIf = "runs !== undefined && runs.length === 0 ">
+     <h4> Oops, No Runs found </h4>
+   </div>
+   
     <ul class="runs">
-      <li *ngFor = "let run of runs" (click)="onSelect(run)" [class.selected]="run === selectedRun" >
-        <span class="badge">{{run.id}} </span> {{run.name}}
+      <li *ngFor = "let run of runs;let i = index;" (click)="onSelect(run)" [class.selected]="run === selectedRun" >
+        <span class="badge">{{i}} </span> {{run}}
       <!-- each run goes here -->
       </li>
     </ul>
+
+    <button (click)="goBack()">Back</button>

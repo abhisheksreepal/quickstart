@@ -20,9 +20,9 @@ nav a:visited, a:link {
   color: #607D8B;
 }
 nav a:hover {
-  color: #039be5;
-  background-color: #CFD8DC;
+  color: darkblue;
+  background-color: antiquewhite;
 }
 nav a.active {
-  color: #039be5;
+  color: darkblue;
 }
