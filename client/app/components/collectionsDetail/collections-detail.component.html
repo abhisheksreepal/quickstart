@@ -1,14 +1,49 @@
 <h2>List of Runs</h2>
-
+ 
    <div *ngIf = "runs !== undefined && runs.length === 0 ">
      <h4> Oops, No Runs found </h4>
    </div>
-   
-    <ul class="runs">
-      <li *ngFor = "let run of runs;let i = index;" (click)="onSelect(run)" [class.selected]="run === selectedRun" >
-        <span class="badge">{{i}} </span> {{run}}
-      <!-- each run goes here -->
-      </li>
-    </ul>
+   <section>
 
-    <button (click)="goBack()">Back</button>
+     <div [ngSwitch]="status">
+          <div *ngSwitchCase="'loading'">
+               <loading-indicator></loading-indicator>
+          </div>
+          <div *ngSwitchCase="'active'">
+              <ul class="runs">
+                 <li *ngFor = "let run of runs;let i = index;" (click)="onSelect(run)" [class.selected]="run === selectedRun" >
+                 <span class="badge">{{i}} </span> <span>{{run}}</span>
+    
+                <!-- each run goes here -->
+                 </li>
+      
+               </ul>
+               <button (click)="goBack()">Back</button>
+          </div>
+      </div>
+    
+
+    
+   </section>
+    <aside class="container">
+      <pie-chart></pie-chart>
+     <div *ngIf="selectedRunInfo" class="info">
+          <h2>
+          {{selectedRunInfo.environment | uppercase}}
+        </h2>
+        <h3>
+          {{selectedRunInfo.browser | uppercase}}
+        </h3>
+        <h4>
+          {{selectedRunInfo.time | uppercase}}
+        </h4>
+        <h4>
+          {{selectedRunInfo.status | uppercase}}
+        </h4>
+        <h4>
+          {{selectedRunInfo.percentage | uppercase}}
+        </h4>
+          <button (click)="gotoDetail()">View Run Details</button>
+        </div>
+  </aside>
+  

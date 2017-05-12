@@ -5,6 +5,7 @@ import { Http,Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/retry';
 
 @Injectable()
 export class CollectionsService {
@@ -18,6 +19,7 @@ export class CollectionsService {
     getCollections(): Observable<Collection[]> {
         return this.http.get(this.collectionsUrl)
               .map(this.extractData)
+              .retry(3)
               .catch(this.handleError);
     }
 
@@ -25,6 +27,7 @@ export class CollectionsService {
     getRuns(collection: String): Observable<Number[]> {
         return this.http.get(this.collectionsUrl+"/"+collection+"/runs")
               .map(this.extractRuns)
+              .retry(3)
               .catch(this.handleError);
     }
 
@@ -52,6 +55,19 @@ export class CollectionsService {
 
        });
       return collections || [];
+  }
+
+  getRunInfo(collection: String,run: number): Observable<{}> {
+        return this.http.get(this.collectionsUrl+"/"+collection+"/runs/"+run)
+              .map(this.extractRunInfo)
+              .retry(3)
+              .catch(this.handleError);
+    }
+
+    private extractRunInfo(res: Response) {
+       let body = res.json();
+       
+      return body || {};
   }
 
   private handleError (error: Response | any) {

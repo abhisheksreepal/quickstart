@@ -3,18 +3,19 @@ import { Collection } from '../../models/Collections';
 import { OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {CollectionsService} from '../../services/collections.service';
+import {LoadingPage} from '../../models/loadingPage';
 @Component({
   selector: 'my-collections',
   templateUrl: './collections.component.html',
   styleUrls: ['./collections.component.css']
 })
-export class CollectionsComponents implements OnInit {
+export class CollectionsComponents extends LoadingPage implements OnInit {
 
   selectedCollection: Collection ;
   collections: Collection[];
 
   constructor(private router: Router, private collectionService: CollectionsService) {
-
+      super();
   }
 
   ngOnInit(): void {
@@ -23,8 +24,9 @@ export class CollectionsComponents implements OnInit {
 
   getCollections(): void {
     this.collectionService.getCollections().subscribe(
-          collections => this.collections = collections,
-          error => console.log("error -"+error));
+          collections => {this.ready();
+            this.collections = collections.reverse();},
+          error => {console.log("error -"+error);this.ready();});
     
   }
 

@@ -19,6 +19,10 @@ let corsOptions = {
   credentials:true
 }
 
+console.log("Dir name - "+__dirname)
+app.use(express.static(__dirname + '/public'));
+
+
 // Add headers
 app.use(function (req, res, next) {
 

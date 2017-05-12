@@ -31,6 +31,8 @@
       'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
     '@angular/material': 'npm:@angular/material/bundles/material.umd.js',
     'hammerjs':'npm:hammerjs/hammer.js',
+    'chart.js':'npm:chart.js/dist/Chart.js',
+    'ng2-charts':'npm:ng2-charts/bundles/ng2-charts.umd.js',
 
       // other libraries
       'rxjs':                      'npm:rxjs',

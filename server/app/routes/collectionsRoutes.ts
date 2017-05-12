@@ -10,6 +10,7 @@ const rootPath = "/";
 const collectionsPath = "/collections";
 const listOfRuns = "/collections/:collectionId/runs";
 const listOfRunsDocs = "/collections/:collectionId";
+const runInfo = "/collections/:collectionId/runs/:runId";
 
 router.get(rootPath,function(req,res){
   res.redirect(collectionsPath);
@@ -85,6 +86,53 @@ router.get(listOfRunsDocs, function (req, res) {
                 }
                 db.close();
                 res.json(data);         
+    })  
+
+  }).catch((reason) => {
+    res.status(500).send(reason);
+  }) 
+});
+
+router.get(runInfo, function (req, res) {
+    let components: String[] =[];
+
+
+  let mongoClient = new MongoClient();
+
+   mongoClient.connect(
+    config.mongoDBConnectionString
+  ).then(( db ) =>{
+      console.log(`Connected to DB successfully`);
+      
+      db.collection(req.params.collectionId).find({"runId": Number(req.params.runId)}).toArray((err,data) => {
+                let runIdInfo = {};
+                let status = "passed";
+                let percentage = 0;
+                let totalCount = 0;
+                let passCount=0;
+                console.log(data);
+                data.forEach((row) => {
+                  ++totalCount;
+                  runIdInfo['environment']=row.environment;
+                  runIdInfo['browser'] = row.browser;
+                  runIdInfo['time']= new Date(Number(req.params.runId));
+                  console.log("Row status - "+row.status)
+                  if(row.status !== "passed"){
+                      status = "failed";
+                  }else{
+                    ++passCount;
+                  }
+                    console.log(`URI - `+runIdInfo);
+                });
+                percentage = passCount/totalCount * 100;
+                runIdInfo['percentage'] = percentage.toString();
+                runIdInfo['status'] = status;
+                runIdInfo['data'] = data;
+                if(err){
+                    res.send(500,`Something wrong ${err}`)
+                }
+                db.close();
+                res.json(runIdInfo);         
     })  
 
   }).catch((reason) => {
