@@ -5,7 +5,7 @@
           </div>
           <div *ngSwitchCase="'active'">
                 <div *ngIf="selectedRun && selectedRunInfo" class="info"> 
-       <h2>Run Information</h2>
+       <h2 class='well well-sm'>Run Information</h2>
        <div class="table-responsive">
       <table class='table table-bordered '>
         <thead>
@@ -30,7 +30,7 @@
     </tbody>
       </table>
        </div>
-                <button (click)="gotoDetail()">View Run Details</button>
+                <button class='btn' (click)="gotoDetail()">View Run Details</button>
 
       </div>
   

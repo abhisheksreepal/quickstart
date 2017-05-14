@@ -1,4 +1,4 @@
-<h2>List of Runs</h2>
+<h2 class='well well-lg'>List of Runs</h2>
  
    <div *ngIf = "runs !== undefined && runs.length === 0 ">
      <h4> Oops, No Runs found </h4>
@@ -9,7 +9,7 @@
           <div *ngSwitchCase="'loading'">
                <loading-indicator></loading-indicator>
           </div>
-          <div *ngSwitchCase="'active'">
+          <div *ngSwitchCase="'active'" class='container'>
               <ul class="runs">
                  <li *ngFor = "let run of runs;let i = index;" (click)="onSelect(run)" [class.selected]="run === selectedRun" >
                  <span class="badge">{{i}} </span> <span>{{run}}</span>
@@ -18,7 +18,7 @@
                  </li>
       
                </ul>
-               <button (click)="goBack()">Back</button>
+               <button class='btn' (click)="goBack()">Back</button>
           </div>
       </div>
     
