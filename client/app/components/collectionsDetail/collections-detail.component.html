@@ -1,34 +1,35 @@
 <h2 class='well well-lg'>List of Runs</h2>
- 
-   <div *ngIf = "runs !== undefined && runs.length === 0 ">
-     <h4> Oops, No Runs found </h4>
-   </div>
-   <section>
+<div class='container-fluid'>
+  <div class='row'>
 
-     <div [ngSwitch]="status">
-          <div *ngSwitchCase="'loading'">
-               <loading-indicator></loading-indicator>
-          </div>
-          <div *ngSwitchCase="'active'" class='container'>
-              <ul class="runs">
-                 <li *ngFor = "let run of runs;let i = index;" (click)="onSelect(run)" [class.selected]="run === selectedRun" >
-                 <span class="badge">{{i}} </span> <span>{{run}}</span>
-    
-                <!-- each run goes here -->
-                 </li>
-      
-               </ul>
-               <button class='btn' (click)="goBack()">Back</button>
-          </div>
+    <div [ngSwitch]="status" class='col-xs-4'>
+      <div *ngSwitchCase="'loading'">
+        <loading-indicator></loading-indicator>
       </div>
-    
+      <div *ngSwitchCase="'active'">
 
-    
-   </section>
-  
-    <aside class="container">
-     <run-info-table [selectedRun]="selectedRun" [collection]="collection">
-     </run-info-table>
-  
-  </aside>
-  
+        <div *ngIf="runs !== undefined && runs.length === 0 ">
+          <h4> Oops, No Runs found </h4>
+        </div>
+        <div class="runs list-group">
+          <a class='list-group-item' *ngFor="let run of runs;let i = index;" (click)="onSelect(run)" [class.active]="run === selectedRun">
+            <span class="badge">{{i}} </span> <span>{{run}}</span>
+
+            <!-- each run goes here -->
+          </a>
+
+        </div>
+        <button class='btn' (click)="goBack()">Back</button>
+
+
+      </div>
+    </div>
+
+    <div class='col-xs-8'>
+      <run-info-table [selectedRun]="selectedRun" [collection]="collection">
+      </run-info-table>
+
+    </div>
+
+  </div>
+</div>
