@@ -18,6 +18,10 @@ export class RunInfoTableComponent extends LoadingPage implements OnChanges {
     selectedRunInfo: any = undefined;
    @Input() selectedRun: number;
    @Input() collection: string;
+
+   labels: string[];
+   data: number[];
+   colors: any[];
  
   constructor(
     private collectionsService: CollectionsService 
@@ -33,6 +37,15 @@ ngOnChanges(): void {
     {
       this.ready();
       this.selectedRunInfo = info;
+      this.labels = ['PASS % ','FAIL %'];
+      let pass: number = this.selectedRunInfo.percentage;
+      let fail = 100 - pass;
+      this.data = [pass,fail];
+      this.colors =  [
+   { // first color
+       backgroundColor: ["#5fc536", "#be2c54"] 
+   }
+  ];
     });
   }
     

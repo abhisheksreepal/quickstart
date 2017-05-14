@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Input } from '@angular/core';
 
 
 @Component({
@@ -7,11 +7,15 @@ import { Component } from '@angular/core';
 })
 export class PieChartComponent {
   // Pie
-  public pieChartLabels:string[] = ['Pass %', 'Fail %'];
-  public pieChartData:number[] =  [60, 40]
+  @Input() public pieChartLabels:string[] = ['Pass %', 'Fail %'];
+  @Input() public pieChartData:number[] =  [60, 40]
   public pieChartType:string = 'pie';
+
+  public pieChartOptions = {
+    maintainAspectRatio: false
+  }
  
- public pieChartColors:Array<any> = [
+ @Input() public pieChartColors:Array<any> = [
    { // first color
        backgroundColor: ["#5fc536", "#be2c54"] 
    }
