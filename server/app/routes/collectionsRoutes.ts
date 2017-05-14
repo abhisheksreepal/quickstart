@@ -116,6 +116,7 @@ router.get(runInfo, function (req, res) {
                   runIdInfo['environment']=row.environment;
                   runIdInfo['browser'] = row.browser;
                   runIdInfo['time']= new Date(Number(req.params.runId));
+                  runIdInfo['category'] = row.category;
                   console.log("Row status - "+row.status)
                   if(row.status !== "passed"){
                       status = "failed";

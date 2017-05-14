@@ -25,25 +25,10 @@
 
     
    </section>
+  
     <aside class="container">
-      <pie-chart></pie-chart>
-     <div *ngIf="selectedRunInfo" class="info">
-          <h2>
-          {{selectedRunInfo.environment | uppercase}}
-        </h2>
-        <h3>
-          {{selectedRunInfo.browser | uppercase}}
-        </h3>
-        <h4>
-          {{selectedRunInfo.time | uppercase}}
-        </h4>
-        <h4>
-          {{selectedRunInfo.status | uppercase}}
-        </h4>
-        <h4>
-          {{selectedRunInfo.percentage | uppercase}}
-        </h4>
-          <button (click)="gotoDetail()">View Run Details</button>
-        </div>
+     <run-info-table [selectedRun]="selectedRun" [collection]="collection">
+     </run-info-table>
+  
   </aside>
   

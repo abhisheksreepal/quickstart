@@ -18,6 +18,7 @@ export class CollectionsDetailComponent extends LoadingPage implements OnInit {
     selectedRunInfo: {};
   runs: Number[];
   selectedRun: number;
+  collection: string;
  
   constructor(
   private route: ActivatedRoute,
@@ -44,10 +45,15 @@ goBack(): void {
 }
 
  onSelect(run: number): void {
-  this.route.params
-    .switchMap((params: Params) => this.collectionsService.getRunInfo(params['name'],run))
-    .subscribe(info => this.selectedRunInfo = info);
-  this.selectedRun = run;
+  this.route.params.subscribe( params =>
+        {
+      this.collection =params['name'];
+      this.selectedRun = run;
+        }
+  )
+    
+    ;
+  
     
 }
 

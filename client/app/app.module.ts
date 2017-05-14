@@ -15,10 +15,11 @@ import {CollectionsDetailComponent} from './components/collectionsDetail/collect
 import {LoadingIndicatorComponent} from './components/loadingIndicator/loading-indicator.component';
 import {ChartsModule} from 'ng2-charts';
 import {PieChartComponent} from './components/pieChart/piechart.component';
+import {RunInfoTableComponent} from './components/runInfoTable/run-info-table.component';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, AppRoutingModule, MaterialModule.forRoot(), BrowserAnimationsModule,HttpModule,ChartsModule ],
-  declarations: [ AppComponent, DashboardComponent, PageNotFoundComponent, ToolBarComponent ,CollectionsComponents,CollectionsDetailComponent,LoadingIndicatorComponent,PieChartComponent],
+  declarations: [ AppComponent, DashboardComponent, PageNotFoundComponent, ToolBarComponent ,CollectionsComponents,CollectionsDetailComponent,LoadingIndicatorComponent,PieChartComponent,RunInfoTableComponent],
   bootstrap:    [ AppComponent ],
   providers: [ CollectionsService ]
 

@@ -6,7 +6,7 @@
     "clean": "gulp clean",
     "build:client": "gulp build:client",
     "build:server": "gulp build:server",
-    "build": "npm run clean && npm run build:client && npm run build:server",
+    "build": "npm run clean && npm run build:client && npm run build:server && concurrently \"node dist/server/server.js\" \"npm start\"",
     "watch:server": "gulp watch:server",
     "compile": "gulp compile",
     "compile:server": "gulp compile:server",
