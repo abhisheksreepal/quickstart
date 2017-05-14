@@ -8,17 +8,6 @@ const app: Express = express();
 
 const port: number =  process.env.port || config.applicationPort;
 
-let originsWhitelist = [
-  'http://localhost:8090'      //this is my front-end url for development
-];
-let corsOptions = {
-  origin: function(origin: any, callback: any){
-        var isWhitelisted = originsWhitelist.indexOf(origin) !== -1;
-        callback(null, isWhitelisted);
-  },
-  credentials:true
-}
-
 console.log("Dir name - "+__dirname)
 app.use(express.static(__dirname + '/public'));
 
@@ -26,8 +15,9 @@ app.use(express.static(__dirname + '/public'));
 // Add headers
 app.use(function (req, res, next) {
 
+    console.log("Origin  - "+req.headers.origin);
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');

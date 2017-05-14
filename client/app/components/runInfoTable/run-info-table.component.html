@@ -4,7 +4,7 @@
   </div>
   <div *ngSwitchCase="'active'">
     <div *ngIf="selectedRun && selectedRunInfo" class="info">
-      <h2 class='well well-sm'>Run Information</h2>
+      <h2 class='well well-sm'>Run Summary</h2>
       <pie-chart [pieChartLabels]="labels" [pieChartData]="data" [pieChartColors]="colors" ></pie-chart>
       <div class="table-responsive">
         <table class='table table-bordered '>
