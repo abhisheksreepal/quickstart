@@ -1,0 +1,14 @@
+<div [ngSwitch]="status">
+  <div *ngSwitchCase="'loading'">
+    <loading-indicator></loading-indicator>
+  </div>
+  <div *ngSwitchCase="'active'">
+      
+
+       <run-info-table [selectedRun]="selectedRun" [collection]="collection" [showDetails]="false" >
+      </run-info-table>
+     
+      <button class='btn' (click)="goBack()">Back</button>
+
+  </div>
+</div>

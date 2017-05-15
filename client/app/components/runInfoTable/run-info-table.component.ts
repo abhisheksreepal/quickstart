@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-
+import {Router} from '@angular/router';
 import { ActivatedRoute, Params }   from '@angular/router';
 import { Location }                 from '@angular/common';
 import 'rxjs/add/operator/switchMap';
@@ -18,13 +18,15 @@ export class RunInfoTableComponent extends LoadingPage implements OnChanges {
     selectedRunInfo: any = undefined;
    @Input() selectedRun: number;
    @Input() collection: string;
+   @Input() showDetails: boolean = true;
 
    labels: string[];
    data: number[];
    colors: any[];
  
   constructor(
-    private collectionsService: CollectionsService 
+    private collectionsService: CollectionsService ,
+    private router: Router
 ) {
   super("active");
 }
@@ -43,13 +45,24 @@ ngOnChanges(): void {
       this.data = [pass,fail];
       this.colors =  [
    { // first color
-       backgroundColor: ["#5fc536", "#be2c54"] 
+       backgroundColor: [ "#7FFF00","#FF0000"] 
    }
   ];
     });
   }
+
+  
     
 }
+
+
+
+gotoDetail(): void {
+  // Navigate tofeature Overview
+  this.router.navigate(["/runOverview",this.collection,this.selectedRun.toString()]);
+}
+
+
 
 
 }

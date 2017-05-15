@@ -15,9 +15,11 @@ app.use(express.static(__dirname + '/public'));
 // Add headers
 app.use(function (req, res, next) {
 
-    console.log("Origin  - "+req.headers.origin);
+    console.log("Origin  - "+req.header('Origin'));
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+    if(req.header('Origin')){
+    res.setHeader('Access-Control-Allow-Origin', req.header('Origin'));
+    }
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');

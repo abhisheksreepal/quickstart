@@ -30,7 +30,7 @@
           </tbody>
         </table>
       </div>
-      <button class='btn' (click)="gotoDetail()">View Run Details</button>
+      <button id="details" class='btn' [class.hidden]="!showDetails" [class.show]="showDetails" (click)="gotoDetail()">View Run Details</button>
     </div>
 
   </div>

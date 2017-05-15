@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { ActivatedRoute, Params }   from '@angular/router';
+import { ActivatedRoute, Params ,Router}   from '@angular/router';
 import { Location }                 from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 import {CollectionsService} from '../../services/collections.service';
@@ -15,7 +15,6 @@ import {LoadingPage} from '../../models/loadingPage';
   styleUrls: [ './collections-detail.component.css' ]
 })
 export class CollectionsDetailComponent extends LoadingPage implements OnInit {
-    selectedRunInfo: {};
   runs: Number[];
   selectedRun: number;
   collection: string;
@@ -23,20 +22,27 @@ export class CollectionsDetailComponent extends LoadingPage implements OnInit {
   constructor(
   private route: ActivatedRoute,
   private location: Location,
-  private collectionsService: CollectionsService 
+  private collectionsService: CollectionsService ,
+  private router: Router
 ) {
   super();
 }
 
 ngOnInit(): void {
-  this.route.params
-    .switchMap((params: Params) => this.collectionsService.getRuns(params['name']))
-    .subscribe(collections => 
+
+  this.route.params.subscribe( params =>
+        {
+      this.collection =params['name'];
+      this.collectionsService.getRuns(params['name']).subscribe(collections => 
     {
       this.ready();
       this.runs = collections.reverse();
       }
     );
+        }
+  )
+
+  
     
 }
 
@@ -45,16 +51,9 @@ goBack(): void {
 }
 
  onSelect(run: number): void {
-  this.route.params.subscribe( params =>
-        {
-      this.collection =params['name'];
-      this.selectedRun = run;
-        }
-  )
-    
-    ;
-  
+  this.selectedRun = run;
     
 }
+
 
 }
