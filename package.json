@@ -13,7 +13,8 @@
     "watch": "gulp watch",
     "serve": "lite-server -c=bs-config.json",
     "start": "concurrently \"npm run watch\" \"npm run serve\"",
-    "startserver":"node dist/server/server.js"
+    "startserver":"node dist/server/server.js",
+    "buildserver":"npm run clean && npm run build:server"
   },
   "keywords": [],
   "author": "",
