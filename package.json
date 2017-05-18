@@ -12,7 +12,8 @@
     "compile:server": "gulp compile:server",
     "watch": "gulp watch",
     "serve": "lite-server -c=bs-config.json",
-    "start": "concurrently \"npm run watch\" \"npm run serve\""
+    "start": "concurrently \"npm run watch\" \"npm run serve\"",
+    "startserver":"node dist/server/server.js"
   },
   "keywords": [],
   "author": "",
