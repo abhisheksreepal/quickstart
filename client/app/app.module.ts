@@ -19,7 +19,7 @@ import {RunInfoTableComponent} from './components/runInfoTable/run-info-table.co
 import {FeatureOverviewComponent} from './components/featureOverview/featureOverview.component';
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, AppRoutingModule, MaterialModule.forRoot(), BrowserAnimationsModule,HttpModule,ChartsModule ],
+  imports:      [ BrowserModule, FormsModule, AppRoutingModule, MaterialModule, BrowserAnimationsModule,HttpModule,ChartsModule ],
   declarations: [ AppComponent, DashboardComponent, PageNotFoundComponent, ToolBarComponent ,CollectionsComponents,CollectionsDetailComponent,LoadingIndicatorComponent,PieChartComponent,RunInfoTableComponent,FeatureOverviewComponent],
   bootstrap:    [ AppComponent ],
   providers: [ CollectionsService ]

@@ -6,11 +6,12 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/retry';
+import * as config from '../config';
 
 @Injectable()
 export class CollectionsService {
 
-    private collectionsUrl = 'http://localhost:8090/collections';
+    private collectionsUrl = `${config.apiUrl}/collections`;
 
     constructor(private http: Http){
 
