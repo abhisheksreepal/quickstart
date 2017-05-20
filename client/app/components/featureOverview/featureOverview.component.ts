@@ -39,21 +39,7 @@ ngOnInit(): void {
         {
           this.selectedRun = params['runId'];
           this.collection = params['collectionName'];
-          this.collectionsService.getRunInfo(this.collection,this.selectedRun)
-                       .subscribe(info => 
-           {
-            this.ready();
-      this.selectedRunInfo = info;
-      this.labels = ['PASS % ','FAIL %'];
-      let pass: number = this.selectedRunInfo.percentage;
-      let fail = 100 - pass;
-      this.data = [pass,fail];
-      this.colors =  [
-   { // first color
-       backgroundColor: [ "#7FFF00","#FF0000"] 
-   }
-  ];
-    });
+          this.ready();
         });
     }
 
