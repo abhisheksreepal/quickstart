@@ -7,7 +7,51 @@
 
        <run-info-table [selectedRun]="selectedRun" [collection]="collection" [showDetails]="false" >
       </run-info-table>
-     
+
+      <div class="table-responsive">
+      <table class='table table-bordered table-striped table-hover'>
+          <thead>
+            <tr>
+              <th></th>
+              <th colspan="6" >Steps</th>
+              <th colspan="3" >Scenarios</th>
+              <th colspan="2" >Features</th>
+            </tr>
+            <tr>
+              <th >Feature</th>
+              <th >Passed</th>
+              <th >Failed</th>
+              <th >Skipped</th>
+              <th >Pending</th>
+              <th >Undefined</th>
+              <th >Total</th>
+              <th >Passed</th>
+              <th >Failed</th>
+              <th >Total</th>
+              <th >Duration</th>
+              <th >Status</th>
+            </tr>
+          </thead>
+
+      <tr *ngFor="let info of featureInfo" >
+           <td>{{info.name | uppercase}}</td>
+           <td align="center">{{info.stepPassCount }}</td>
+           <td align="center">{{info.stepFailCount}}</td>
+           <td align="center">{{info.stepSkipCount }}</td>
+            <td align="center">{{info.stepPendingCount }}</td>
+             <td align="center">{{info.stepUndefinedCount }}</td>
+           <td align="center">{{info.totalSteps }}</td>
+           <td align="center">{{info.scenarioPassCount }}</td>
+            <td align="center">{{info.scenarioFailCount }}</td>
+             <td align="center">{{info.totalScenarios }}</td>
+           <td align="center">{{info.featureDuration}} minutes</td>
+           <td align="center">{{info.featureStatus | uppercase}}</td>
+
+          
+        </tr>
+
+      </table>
+      </div>
       <button class='btn' (click)="goBack()">Back</button>
 
   </div>

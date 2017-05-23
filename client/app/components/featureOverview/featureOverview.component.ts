@@ -23,6 +23,7 @@ export class FeatureOverviewComponent extends LoadingPage implements OnInit {
    data: number[];
    colors: any[];
 
+   featureInfo: {};
 
  
   constructor(
@@ -39,7 +40,10 @@ ngOnInit(): void {
         {
           this.selectedRun = params['runId'];
           this.collection = params['collectionName'];
-          this.ready();
+          this.collectionsService.getFeatureInfo(this.collection,this.selectedRun).subscribe( info => {
+            this.featureInfo = info;
+            this.ready();
+          } )
         });
     }
 

@@ -70,6 +70,14 @@ export class CollectionsService {
       return body || {};
   }
 
+  getFeatureInfo(collection: String,run: number): Observable<{}> {
+        return this.http.get(this.collectionsUrl+"/"+collection+"/runs/"+run+"/features")
+              .map(this.extractRunInfo)
+              .retry(3)
+              .catch(this.handleError);
+    }
+
+
   private handleError (error: Response | any) {
     // In a real world app, you might use a remote logging infrastructure
     let errMsg: string;
