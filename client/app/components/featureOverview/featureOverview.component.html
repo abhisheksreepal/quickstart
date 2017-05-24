@@ -13,21 +13,21 @@
       <table class='table table-bordered table-striped table-hover'>
           <thead>
             <tr>
-              <th></th>
-              <th colspan="6" >Steps</th>
-              <th colspan="3" >Scenarios</th>
-              <th colspan="2" >Features</th>
+              <th class="notsortable" ></th>
+              <th class="notsortable" colspan="6" >Steps</th>
+              <th class="notsortable" colspan="3" >Scenarios</th>
+              <th class="notsortable" colspan="2" >Features</th>
             </tr>
             <tr>
               <th >Feature</th>
-              <th >Passed</th>
-              <th >Failed</th>
-              <th >Skipped</th>
-              <th >Pending</th>
-              <th >Undefined</th>
+              <th class="pass">Passed</th>
+              <th class="fail">Failed</th>
+              <th class="skip">Skipped</th>
+              <th class="pending">Pending</th>
+              <th class="undefined">Undefined</th>
               <th >Total</th>
-              <th >Passed</th>
-              <th >Failed</th>
+              <th class="pass">Passed</th>
+              <th class="fail">Failed</th>
               <th >Total</th>
               <th >Duration</th>
               <th >Status</th>
@@ -36,17 +36,17 @@
 
       <tr *ngFor="let info of featureInfo" >
            <td>{{info.name | uppercase}}</td>
-           <td align="center">{{info.stepPassCount }}</td>
-           <td align="center">{{info.stepFailCount}}</td>
-           <td align="center">{{info.stepSkipCount }}</td>
-            <td align="center">{{info.stepPendingCount }}</td>
-             <td align="center">{{info.stepUndefinedCount }}</td>
+           <td align="center"[class.pass]="info.stepPassCount > 0">{{info.stepPassCount }}</td>
+           <td align="center" [class.fail]="info.stepFailCount > 0">{{info.stepFailCount}}</td>
+           <td align="center" [class.skip]="info.stepSkipCount > 0">{{info.stepSkipCount }}</td>
+            <td align="center" [class.pending]="info.stepPendingCount > 0">{{info.stepPendingCount }}</td>
+             <td align="center" [class.undefined]="info.stepUndefinedCount > 0">{{info.stepUndefinedCount }}</td>
            <td align="center">{{info.totalSteps }}</td>
-           <td align="center">{{info.scenarioPassCount }}</td>
-            <td align="center">{{info.scenarioFailCount }}</td>
+           <td align="center" [class.pass]="info.scenarioPassCount > 0">{{info.scenarioPassCount }}</td>
+            <td align="center" [class.fail]="info.scenarioFailCount > 0">{{info.scenarioFailCount }}</td>
              <td align="center">{{info.totalScenarios }}</td>
            <td align="center">{{info.featureDuration}} minutes</td>
-           <td align="center">{{info.featureStatus | uppercase}}</td>
+           <td align="center" [class.fail]="info.featureStatus  === 'failed'" [class.pass]="info.featureStatus  === 'passed'">{{info.featureStatus | uppercase}}</td>
 
           
         </tr>

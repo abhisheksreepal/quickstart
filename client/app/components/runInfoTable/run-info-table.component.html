@@ -6,16 +6,18 @@
     <div *ngIf="selectedRun && selectedRunInfo" class="info">
       <h2 class='well well-sm'>Run Summary</h2>
       <pie-chart [pieChartLabels]="labels" [pieChartData]="data" [pieChartColors]="colors" ></pie-chart>
+      <div class="container-fluid">
+        <div class="row">
       <div class="table-responsive">
         <table class='table table-bordered '>
           <thead>
             <tr>
-              <th>Environment</th>
-              <th>Browser</th>
-              <th>Time</th>
-              <th>Status</th>
-              <th>Percentage</th>
-              <th>Category</th>
+              <th class="notsortable">Environment</th>
+              <th class="notsortable">Browser</th>
+              <th class="notsortable">Time</th>
+              <th class="notsortable">Status</th>
+              <th class="notsortable">Percentage</th>
+              <th class="notsortable">Category</th>
             </tr>
           </thead>
           <tbody>
@@ -23,14 +25,18 @@
               <td>{{selectedRunInfo.environment | uppercase}}</td>
               <td> {{selectedRunInfo.browser | uppercase}}</td>
               <td> {{selectedRunInfo.time | uppercase}}</td>
-              <td [class.danger]="selectedRunInfo.status === 'failed'" [class.success]="selectedRunInfo.status === 'passed'"> {{selectedRunInfo.status | uppercase}}</td>
+              <td [class.fail]="selectedRunInfo.status === 'failed'" [class.pass]="selectedRunInfo.status === 'passed'"> {{selectedRunInfo.status | uppercase}}</td>
               <td> {{selectedRunInfo.percentage | uppercase}}</td>
               <td> {{selectedRunInfo.category | uppercase}}</td>
             </tr>
           </tbody>
         </table>
       </div>
+      </div>
+      <div class="row">
       <button id="details" class='btn' [class.hidden]="!showDetails" [class.show]="showDetails" (click)="gotoDetail()">View Run Details</button>
+      </div>
+      </div>
     </div>
 
   </div>
