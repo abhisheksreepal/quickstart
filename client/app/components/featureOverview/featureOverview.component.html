@@ -7,7 +7,8 @@
 
        <run-info-table [selectedRun]="selectedRun" [collection]="collection" [showDetails]="false" >
       </run-info-table>
-
+      <div class="container">
+        <div class="row">
       <div class="table-responsive">
       <table class='table table-bordered table-striped table-hover'>
           <thead>
@@ -52,7 +53,14 @@
 
       </table>
       </div>
-      <button class='btn' (click)="goBack()">Back</button>
+        </div>
+
+        <div class="row">
+          <button class='btn col-sm-2 col-sm-offset-4' (click)="goBack()">Back</button>
+        
+        </div>
+      </div>
+      
 
   </div>
 </div>
