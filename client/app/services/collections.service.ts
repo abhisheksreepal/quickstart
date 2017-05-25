@@ -10,7 +10,7 @@ import 'rxjs/add/operator/retry';
 @Injectable()
 export class CollectionsService {
 
-    private collectionsUrl = `https://10.5.9.123:8443/collections`;
+    private collectionsUrl = `https://localhost:8443/collections`;
 
     constructor(private http: Http){
 

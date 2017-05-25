@@ -92,6 +92,28 @@
                            {{info.match.location}}
                   </h5>
                </div>
+               <div class="row">   
+                  <h5 class="col-sm-2" >
+                           Steps:
+                   </h5>  
+                    <h5 class="col-sm-4" *ngFor="let info of scenario.steps" >
+                           {{info.keyword}}{{info.name}}
+                           <h5 class="col-sm-4" *ngFor="let info of info.embeddings" >
+                           {{info.mime_type}}
+                          </h5>
+                          <h5 class="col-sm-4" *ngFor="let info of info.output" >
+                           {{info}}
+                          </h5>
+                    </h5>
+               </div>
+               <div class="row">   
+                  <h5 class="col-sm-2" >
+                           After:
+                   </h5>  
+                    <h5 class="col-sm-4" *ngFor="let info of scenario.after" >
+                           {{info.match.location}}
+                  </h5>
+               </div>
              </div>
           </div>
         </div>
