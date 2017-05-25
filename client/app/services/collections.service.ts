@@ -70,8 +70,15 @@ export class CollectionsService {
       return body || {};
   }
 
-  getFeatureInfo(collection: String,run: number): Observable<{}> {
+  getFeatureInfo(collection: String,run: number): Observable<any> {
         return this.http.get(this.collectionsUrl+"/"+collection+"/runs/"+run+"/features")
+              .map(this.extractRunInfo)
+              .retry(3)
+              .catch(this.handleError);
+    }
+
+    getFeature(collection: String,run: number,featureName: string): Observable<any> {
+        return this.http.get(this.collectionsUrl+"/"+collection+"/runs/"+run+"/features/"+featureName)
               .map(this.extractRunInfo)
               .retry(3)
               .catch(this.handleError);

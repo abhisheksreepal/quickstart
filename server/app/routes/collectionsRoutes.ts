@@ -13,6 +13,7 @@ const listOfRuns = "/collections/:collectionId/runs";
 const listOfRunsDocs = "/collections/:collectionId";
 const runInfo = "/collections/:collectionId/runs/:runId";
 const featureInfoForaRun = "/collections/:collectionId/runs/:runId/features";
+const feature = "/collections/:collectionId/runs/:runId/features/:featureName";
 
 router.get(rootPath,function(req,res){
   res.redirect(collectionsPath);
@@ -254,7 +255,45 @@ router.get(featureInfoForaRun, function (req, res) {
   }) 
 });
 
+router.get(feature, function (req, res) {
+    let components: String[] =[];
 
+
+  let mongoClient = new MongoClient();
+
+   mongoClient.connect(
+    config.mongoDBConnectionString
+  ).then(( db ) =>{
+      console.log(`Connected to DB successfully`);
+      
+      db.collection(req.params.collectionId).find({"runId": Number(req.params.runId)}).toArray((err,data) => {
+               
+                let features =  {};
+                data.forEach( (row) => {
+                   if( !(row.name in features)){
+                    features[row.name] = row;
+                   }else{
+                       for (let element of row.elements) {
+                            features[row.name]['elements'].push(element);
+                     }
+                   }
+                })
+                for (let key in features){
+                    if(features[key].name !== req.params.featureName){
+                        delete features[key];
+                    }
+                }
+                console.log("PAram - "+req.params.featureName);
+                console.log(features);
+               
+                db.close();
+                res.json(features);         
+    })  
+
+  }).catch((reason) => {
+    res.status(500).send(reason);
+  }) 
+});
 
 
 export { router };

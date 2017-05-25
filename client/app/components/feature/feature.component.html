@@ -4,10 +4,8 @@
   </div>
   <div *ngSwitchCase="'active'">
       
-
-       <run-info-table [class.hidden]="!showRunInfo" [class.show]="showRunInfo" [selectedRun]="selectedRun" [collection]="collection" [showDetails]="false" >
-      </run-info-table>
       <div class="container">
+        <h1 class="well well-sm">Feature Summary</h1>
         <div class="row">
       <div class="table-responsive">
       <table class='table table-bordered table-striped table-hover'>
@@ -35,7 +33,7 @@
           </thead>
 
       <tr *ngFor="let info of featureInfo" >
-           <td class="feature" (click)=onSelect(info)><a>{{info.name | uppercase}}</a></td>
+           <td class="feature">{{info.name | uppercase}}</td>
            <td align="center"[class.pass]="info.stepPassCount > 0">{{info.stepPassCount }}</td>
            <td align="center" [class.fail]="info.stepFailCount > 0">{{info.stepFailCount}}</td>
            <td align="center" [class.skip]="info.stepSkipCount > 0">{{info.stepSkipCount }}</td>
@@ -54,10 +52,54 @@
       </table>
       </div>
         </div>
+        
+        <div class="row">
+          <h5 class="col-sm-2">Tags:</h5>  
+          <h5 class="col-sm-2" *ngFor="let info of feature.tags">
+             {{info.name}}
+          </h5>
+        </div>
 
         <div class="row">
-          <button class='btn col-sm-2 col-sm-offset-4' (click)="goBack()">Back</button>
-        
+          <h5 class="col-sm-2">Feature:</h5>  
+          <h5 class="col-sm-4" >
+             {{feature.name}}
+          </h5>
+        </div>
+
+        <div class ="row scenario">
+          <div *ngFor="let scenario of feature.elements" >
+             <div class="container">
+               <div class="row">
+                   <h5 class="col-sm-2">Tags:</h5> 
+                    <h5 class="col-sm-2" *ngFor="let info of scenario.tags">
+                            {{info.name}}
+                     </h5>
+               </div>
+               <div class="row">   
+                  <h5 class="col-sm-2" >
+                           Scenario:
+                   </h5>  
+                    <h5 class="col-sm-4" >
+                           {{scenario.name}}
+                  </h5>
+               </div>
+               <div class="row">   
+                  <h5 class="col-sm-2" >
+                           Before:
+                   </h5>  
+                    <h5 class="col-sm-4" *ngFor="let info of scenario.before" >
+                           {{info.match.location}}
+                  </h5>
+               </div>
+             </div>
+          </div>
+        </div>
+
+       
+
+        <div class="row">
+          <button class='btn col-sm-2 col-sm-offset-4' (click)="goBack()">Back</button>  
         </div>
       </div>
       

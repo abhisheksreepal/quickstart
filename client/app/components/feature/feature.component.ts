@@ -10,20 +10,18 @@ import {LoadingPage} from '../../models/loadingPage';
 
 
 @Component({
-  selector: 'featureOverview',
-  templateUrl: './featureOverview.component.html',
-  styleUrls: [ './featureOverview.component.css' ]
+  selector: 'feature',
+  templateUrl: './feature.component.html',
+  styleUrls: [ './feature.component.css' ]
 })
-export class FeatureOverviewComponent extends LoadingPage implements OnInit {
+export class FeatureComponent extends LoadingPage implements OnInit {
    selectedRun: number;
    collection: string;
-   @Input() showRunInfo: boolean = true;
-
-   labels: string[];
-   data: number[];
-   colors: any[];
+   featureName: string;
 
    featureInfo: {};
+   feature = {};
+  
 
  
   constructor(
@@ -40,22 +38,29 @@ ngOnInit(): void {
         {
           this.selectedRun = params['runId'];
           this.collection = params['collectionName'];
+          this.featureName = params['featureName'];
           this.collectionsService.getFeatureInfo(this.collection,this.selectedRun).subscribe( info => {
+            
+            let length  = info.length;
+            while(length--){
+              if(info[length]['name'] !== this.featureName){
+                 info.splice(length,1);
+              }
+            }
             this.featureInfo = info;
+            this.collectionsService.getFeature(this.collection,this.selectedRun,this.featureName).subscribe( info => {
+            this.feature = info[this.featureName];
+            console.log("Feature -- > "+JSON.stringify(this.feature))
             this.ready();
-          } )
+              } );
+          } );
+          
         });
     }
 
     goBack(): void {
       this.location.back();
     }
-
-   onSelect(info: any){
-     this.router.navigate(["/featureDetail",this.collection,this.selectedRun,info.name]);
-   }
-
-
 
 
 }
