@@ -78,7 +78,7 @@
                </div>
                <div class="row">   
                   <h5 class="col-sm-2" >
-                           Scenario:
+                           {{scenario.type}}:
                    </h5>  
                     <h5 class="col-sm-4" >
                            {{scenario.name}}
@@ -102,7 +102,8 @@
                            {{info.mime_type}}
                           </h5>
                           <h5 class="col-sm-4" *ngFor="let info of info.output" >
-                           {{info}}
+                            <modal-static [header]="'output'" [body]="info"> </modal-static>
+                           
                           </h5>
                     </h5>
                </div>

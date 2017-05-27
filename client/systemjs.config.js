@@ -33,6 +33,8 @@
     'hammerjs':'npm:hammerjs/hammer.js',
     'chart.js':'npm:chart.js/dist/Chart.js',
     'ng2-charts':'npm:ng2-charts/bundles/ng2-charts.umd.js',
+    'moment': 'npm:moment/moment.js',
+    'ngx-bootstrap':  'npm:ngx-bootstrap',
 
       // other libraries
       'rxjs':                      'npm:rxjs',

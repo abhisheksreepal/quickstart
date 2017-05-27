@@ -18,10 +18,12 @@ import {PieChartComponent} from './components/pieChart/piechart.component';
 import {RunInfoTableComponent} from './components/runInfoTable/run-info-table.component';
 import {FeatureOverviewComponent} from './components/featureOverview/featureOverview.component';
 import {FeatureComponent} from './components/feature/feature.component';
+import {DemoModalStaticComponent} from './components/staticModal/static-modal.component';
+import {ModalModule} from 'ngx-bootstrap'
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, AppRoutingModule, MaterialModule, BrowserAnimationsModule,HttpModule,ChartsModule ],
-  declarations: [ AppComponent, DashboardComponent, PageNotFoundComponent, ToolBarComponent ,CollectionsComponents,CollectionsDetailComponent,LoadingIndicatorComponent,PieChartComponent,RunInfoTableComponent,FeatureOverviewComponent,FeatureComponent],
+  imports:      [ BrowserModule, FormsModule, AppRoutingModule, MaterialModule, BrowserAnimationsModule,HttpModule,ChartsModule,ModalModule.forRoot() ],
+  declarations: [ AppComponent, DashboardComponent, PageNotFoundComponent, ToolBarComponent ,CollectionsComponents,CollectionsDetailComponent,LoadingIndicatorComponent,PieChartComponent,RunInfoTableComponent,FeatureOverviewComponent,FeatureComponent,DemoModalStaticComponent],
   bootstrap:    [ AppComponent ],
   providers: [ CollectionsService ]
 

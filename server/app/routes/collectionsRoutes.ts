@@ -181,9 +181,12 @@ router.get(featureInfoForaRun, function (req, res) {
 
                       let featureDuration = 0;
                       for (let i=0;i<features[key].elements.length;i++){
-                          
+                          if(features[key].elements[i].after){
                           featureDuration+=getFeatureDuration(features[key].elements[i].after)
+                        }
+                        if(features[key].elements[i].before){
                           featureDuration+=getFeatureDuration(features[key].elements[i].before)
+                        }
                           featureDuration+=getFeatureDuration(features[key].elements[i].steps)
 
                       }
@@ -192,11 +195,15 @@ router.get(featureInfoForaRun, function (req, res) {
 
                       let featureStatus = ""
                       for (let i=0;i<features[key].elements.length;i++){
+                          if(features[key].elements[i].after){
                           featureStatus = getFeatureStatus(features[key].elements[i].after);
+                          }
                           if (featureStatus === "failed"){
                               break;
                           }
+                          if(features[key].elements[i].before){
                           featureStatus = getFeatureStatus(features[key].elements[i].before);
+                          }
                           if (featureStatus === "failed"){
                               break;
                           }
@@ -207,14 +214,25 @@ router.get(featureInfoForaRun, function (req, res) {
                       }
 
                       let scenarioFailCount = 0;
+                      let scenarioPassCount = 0;
                       for (let i=0;i<features[key].elements.length;i++){
-                          
-                          if(isScenarioFailed(features[key].elements[i].after) || isScenarioFailed(features[key].elements[i].before) || isScenarioFailed(features[key].elements[i].steps)){
+                          if(features[key].elements[i].type === "scenario"){  
+                          let beforeStatus: boolean =false;
+                          let afterStatus: boolean =false;;
+                          if(features[key].elements[i].after){
+                              afterStatus =isScenarioFailed(features[key].elements[i].after);
+                          }
+                          if(features[key].elements[i].before){
+                              beforeStatus = isScenarioFailed(features[key].elements[i].before) ;
+                          }
+                          if(afterStatus|| beforeStatus || isScenarioFailed(features[key].elements[i].steps)){
                              scenarioFailCount++;
-                          }   
+                          }  else{
+                              scenarioPassCount++;
+                          }
+                          } 
 
                       }
-                      let scenarioPassCount = features[key].elements.length - scenarioFailCount;
 
                       let stepPassCount = 0;
                       let stepFailCount = 0;
@@ -235,7 +253,7 @@ router.get(featureInfoForaRun, function (req, res) {
                       info['totalSteps'] = steps;
                       info['featureDuration'] = featureDuration;
                       info['featureStatus']=featureStatus;
-                      info['totalScenarios']=features[key].elements.length;
+                      info['totalScenarios']=scenarioFailCount+scenarioPassCount;
                       info['scenarioFailCount']=scenarioFailCount
                       info['scenarioPassCount']=scenarioPassCount;
                       info['stepPassCount']= stepPassCount;
