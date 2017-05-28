@@ -19,10 +19,10 @@ import {RunInfoTableComponent} from './components/runInfoTable/run-info-table.co
 import {FeatureOverviewComponent} from './components/featureOverview/featureOverview.component';
 import {FeatureComponent} from './components/feature/feature.component';
 import {DemoModalStaticComponent} from './components/staticModal/static-modal.component';
-import {ModalModule} from 'ngx-bootstrap'
+import {ModalModule,AccordionModule,TooltipModule} from 'ngx-bootstrap'
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, AppRoutingModule, MaterialModule, BrowserAnimationsModule,HttpModule,ChartsModule,ModalModule.forRoot() ],
+  imports:      [ BrowserModule, FormsModule, AppRoutingModule, MaterialModule, BrowserAnimationsModule,HttpModule,ChartsModule,ModalModule.forRoot(),AccordionModule.forRoot() ,TooltipModule.forRoot()],
   declarations: [ AppComponent, DashboardComponent, PageNotFoundComponent, ToolBarComponent ,CollectionsComponents,CollectionsDetailComponent,LoadingIndicatorComponent,PieChartComponent,RunInfoTableComponent,FeatureOverviewComponent,FeatureComponent,DemoModalStaticComponent],
   bootstrap:    [ AppComponent ],
   providers: [ CollectionsService ]

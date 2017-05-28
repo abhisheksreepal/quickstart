@@ -25,7 +25,7 @@
               <td>{{selectedRunInfo.environment | uppercase}}</td>
               <td> {{selectedRunInfo.browser | uppercase}}</td>
               <td> {{selectedRunInfo.time | uppercase}}</td>
-              <td [class.fail]="selectedRunInfo.status === 'failed'" [class.pass]="selectedRunInfo.status === 'passed'"> {{selectedRunInfo.status | uppercase}}</td>
+              <td [ngClass]="selectedRunInfo.status"> {{selectedRunInfo.status | uppercase}}</td>
               <td> {{selectedRunInfo.percentage | uppercase}}</td>
               <td> {{selectedRunInfo.category | uppercase}}</td>
             </tr>

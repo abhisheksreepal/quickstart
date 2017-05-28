@@ -3,129 +3,186 @@
     <loading-indicator></loading-indicator>
   </div>
   <div *ngSwitchCase="'active'">
-      
-      <div class="container">
-        <h1 class="well well-sm">Feature Summary</h1>
-        <div class="row">
-      <div class="table-responsive">
-      <table class='table table-bordered table-striped table-hover'>
-          <thead>
-            <tr>
-              <th class="notsortable" ></th>
-              <th class="notsortable" colspan="6" >Steps</th>
-              <th class="notsortable" colspan="3" >Scenarios</th>
-              <th class="notsortable" colspan="2" >Features</th>
+
+    <div class="container">
+      <h1 class="well well-sm">Feature Summary</h1>
+      <div class="row">
+        <div class="table-responsive">
+          <table class='table table-bordered table-striped table-hover'>
+            <thead>
+              <tr>
+                <th class="notsortable"></th>
+                <th class="notsortable" colspan="6">Steps</th>
+                <th class="notsortable" colspan="3">Scenarios</th>
+                <th class="notsortable" colspan="2">Features</th>
+              </tr>
+              <tr>
+                <th>Feature</th>
+                <th class="passed">Passed</th>
+                <th class="failed">Failed</th>
+                <th class="skipped">Skipped</th>
+                <th class="pending">Pending</th>
+                <th class="undefined">Undefined</th>
+                <th>Total</th>
+                <th class="passed">Passed</th>
+                <th class="failed">Failed</th>
+                <th>Total</th>
+                <th>Duration</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+
+            <tr *ngFor="let info of featureInfo">
+              <td class="feature">{{info.name | uppercase}}</td>
+              <td align="center" [class.passed]="info.stepPassCount > 0">{{info.stepPassCount }}</td>
+              <td align="center" [class.failed]="info.stepFailCount > 0">{{info.stepFailCount}}</td>
+              <td align="center" [class.skipped]="info.stepSkipCount > 0">{{info.stepSkipCount }}</td>
+              <td align="center" [class.pending]="info.stepPendingCount > 0">{{info.stepPendingCount }}</td>
+              <td align="center" [class.undefined]="info.stepUndefinedCount > 0">{{info.stepUndefinedCount }}</td>
+              <td align="center">{{info.totalSteps }}</td>
+              <td align="center" [class.passed]="info.scenarioPassCount > 0">{{info.scenarioPassCount }}</td>
+              <td align="center" [class.failed]="info.scenarioFailCount > 0">{{info.scenarioFailCount }}</td>
+              <td align="center">{{info.totalScenarios }}</td>
+              <td align="center">{{info.featureDuration}} minutes</td>
+              <td align="center" [ngClass]="info.featureStatus">{{info.featureStatus | uppercase}}</td>
+
+
             </tr>
-            <tr>
-              <th >Feature</th>
-              <th class="pass">Passed</th>
-              <th class="fail">Failed</th>
-              <th class="skip">Skipped</th>
-              <th class="pending">Pending</th>
-              <th class="undefined">Undefined</th>
-              <th >Total</th>
-              <th class="pass">Passed</th>
-              <th class="fail">Failed</th>
-              <th >Total</th>
-              <th >Duration</th>
-              <th >Status</th>
-            </tr>
-          </thead>
 
-      <tr *ngFor="let info of featureInfo" >
-           <td class="feature">{{info.name | uppercase}}</td>
-           <td align="center"[class.pass]="info.stepPassCount > 0">{{info.stepPassCount }}</td>
-           <td align="center" [class.fail]="info.stepFailCount > 0">{{info.stepFailCount}}</td>
-           <td align="center" [class.skip]="info.stepSkipCount > 0">{{info.stepSkipCount }}</td>
-            <td align="center" [class.pending]="info.stepPendingCount > 0">{{info.stepPendingCount }}</td>
-             <td align="center" [class.undefined]="info.stepUndefinedCount > 0">{{info.stepUndefinedCount }}</td>
-           <td align="center">{{info.totalSteps }}</td>
-           <td align="center" [class.pass]="info.scenarioPassCount > 0">{{info.scenarioPassCount }}</td>
-            <td align="center" [class.fail]="info.scenarioFailCount > 0">{{info.scenarioFailCount }}</td>
-             <td align="center">{{info.totalScenarios }}</td>
-           <td align="center">{{info.featureDuration}} minutes</td>
-           <td align="center" [class.fail]="info.featureStatus  === 'failed'" [class.pass]="info.featureStatus  === 'passed'">{{info.featureStatus | uppercase}}</td>
-
-          
-        </tr>
-
-      </table>
+          </table>
+        </div>
       </div>
-        </div>
-        
-        <div class="row">
-          <h5 class="col-sm-2">Tags:</h5>  
-          <h5 class="col-sm-2" *ngFor="let info of feature.tags">
-             {{info.name}}
-          </h5>
-        </div>
+    </div>
 
-        <div class="row">
-          <h5 class="col-sm-2">Feature:</h5>  
-          <h5 class="col-sm-4" >
-             {{feature.name}}
-          </h5>
-        </div>
+    <div class="container-fluid" id="report">
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <div class="feature">
+            <div class="tags">
+              <strong>Tags:</strong>
+              <a href="#" *ngFor="let info of feature.tags">
+                {{info.name}}
+              </a>
+            </div>
+            <div class="brief" [class.fail]="feature.status !== passed ">
+              <span class="keyword"><strong>{{feature.keyword}}</strong></span>
+              <span class="name">
+                   {{feature.name}}
+                </span>
+            </div>
+            <div class="description">
+              {{feature.description}}
+            </div>
+            <div class="elements inner-level indentation">
+              <div class="element" *ngFor="let scenario of feature.elements">
+                <div class="tags">
+                  <b>Tags:</b>
+                  <a href="#" *ngFor="let info of scenario.tags">
+                    {{info.name}}
+                  </a>
+                </div>
+                <span class="lead-duration duration">
+                   </span>
+                <accordion>
+                  <accordion-group #group>
+                    <div accordion-heading>
+                      {{scenario.keyword}}: {{scenario.name}}
+                      <i class="pull-right float-xs-right glyphicon" [ngClass]="{'glyphicon-chevron-down': group?.isOpen, 'glyphicon-chevron-right': !group?.isOpen}"></i>
+                    </div>
+                    <div *ngIf="scenario.before">
+                      <accordion>
+                        <accordion-group #group>
+                          <div accordion-heading>
+                            Hooks
+                            <i class="pull-right float-xs-right glyphicon" [ngClass]="{'glyphicon-chevron-down': group?.isOpen, 'glyphicon-chevron-right': !group?.isOpen}"></i>
+                          </div>
+                          <div *ngFor="let before of scenario.before" [ngClass]="before.result.status">
+                            <span>Before</span>
+                            <span>{{before.match.location}}</span>
+                            <span class="lead-duration badge" tooltip="Duration in ns">{{before.result.duration}}</span>
+                          </div>
+                        </accordion-group>
+                      </accordion>
+                    </div>
+                    <div *ngIf="scenario.steps">
+                      <accordion>
+                        <accordion-group #group>
+                          <div accordion-heading>
+                            Steps
+                            <i class="pull-right float-xs-right glyphicon" [ngClass]="{'glyphicon-chevron-down': group?.isOpen, 'glyphicon-chevron-right': !group?.isOpen}"></i>
+                          </div>
+                          <div *ngFor="let step of scenario.steps" [ngClass]="step.result.status">
+                            <span>{{step.keyword}}</span>
+                            <span>{{step.name}}</span>
+                            <span class="lead-duration badge" tooltip="Duration in ns">{{step.result.duration}}</span>
 
-        <div class ="row scenario">
-          <div *ngFor="let scenario of feature.elements" >
-             <div class="container">
-               <div class="row">
-                   <h5 class="col-sm-2">Tags:</h5> 
-                    <h5 class="col-sm-2" *ngFor="let info of scenario.tags">
-                            {{info.name}}
-                     </h5>
-               </div>
-               <div class="row">   
-                  <h5 class="col-sm-2" >
-                           {{scenario.type}}:
-                   </h5>  
-                    <h5 class="col-sm-4" >
-                           {{scenario.name}}
-                  </h5>
-               </div>
-               <div class="row">   
-                  <h5 class="col-sm-2" >
-                           Before:
-                   </h5>  
-                    <h5 class="col-sm-4" *ngFor="let info of scenario.before" >
-                           {{info.match.location}}
-                  </h5>
-               </div>
-               <div class="row">   
-                  <h5 class="col-sm-2" >
-                           Steps:
-                   </h5>  
-                    <h5 class="col-sm-4" *ngFor="let info of scenario.steps" >
-                           {{info.keyword}}{{info.name}}
-                           <h5 class="col-sm-4" *ngFor="let info of info.embeddings" >
-                           {{info.mime_type}}
-                          </h5>
-                          <h5 class="col-sm-4" *ngFor="let info of info.output" >
-                            <modal-static [header]="'output'" [body]="info"> </modal-static>
-                           
-                          </h5>
-                    </h5>
-               </div>
-               <div class="row">   
-                  <h5 class="col-sm-2" >
-                           After:
-                   </h5>  
-                    <h5 class="col-sm-4" *ngFor="let info of scenario.after" >
-                           {{info.match.location}}
-                  </h5>
-               </div>
-             </div>
+                            <div *ngIf="step.output">
+                              <accordion *ngFor="let output of step.output;let i =index;">
+                                <accordion-group #group>
+                                  <div accordion-heading>
+                                    Output {{i}}
+                                    <i class="pull-right float-xs-right glyphicon" [ngClass]="{'glyphicon-chevron-down': group?.isOpen, 'glyphicon-chevron-right': !group?.isOpen}"></i>
+                                  </div>
+                                  <pre>
+                                  <p>
+                                    {{output}}
+                                  </p>
+                                  </pre>
+                                </accordion-group>
+                              </accordion>
+                            </div>
+                            <div *ngIf="step.embeddings">
+                              <accordion *ngFor="let embed of step.embeddings;let i =index;">
+                                <accordion-group #group>
+                                  <div accordion-heading>
+                                    <a> Attachment {{i}}</a>
+                                    <i class="pull-right float-xs-right glyphicon" [ngClass]="{'glyphicon-chevron-down': group?.isOpen, 'glyphicon-chevron-right': !group?.isOpen}"></i>
+                                  </div>
+                                  <img class="img-responsive" alt="Responsive image" [src]="'data:'+ embed.mime_type+';base64,'+embed.data" />
+                                  
+                                </accordion-group>
+                              </accordion>
+                            </div>
+                            <div *ngIf="step.result.error_message">
+                              <accordion>
+                                <accordion-group #group>
+                                  <div accordion-heading>
+                                    <a> Error Message</a>
+                                    <i class="pull-right float-xs-right glyphicon" [ngClass]="{'glyphicon-chevron-down': group?.isOpen, 'glyphicon-chevron-right': !group?.isOpen}"></i>
+                                  </div>
+                                  <pre>
+                                    {{step.result.error_message}}
+                                  </pre>
+                                </accordion-group>
+                              </accordion>
+                            </div>
+
+                          </div>
+                        </accordion-group>
+                      </accordion>
+                    </div>
+                    <div *ngIf="scenario.after">
+                      <accordion>
+                        <accordion-group #group>
+                          <div accordion-heading>
+                            Hooks
+                            <i class="pull-right float-xs-right glyphicon" [ngClass]="{'glyphicon-chevron-down': group?.isOpen, 'glyphicon-chevron-right': !group?.isOpen}"></i>
+                          </div>
+                          <div *ngFor="let after of scenario.after" [ngClass]="after.result.status">
+                            <span>After</span>
+                            <span>{{after.match.location}}</span>
+                            <span class="lead-duration badge" tooltip="Duration in ns">{{after.result.duration}}</span>
+                          </div>
+                        </accordion-group>
+                      </accordion>
+                    </div>
+                  </accordion-group>
+                </accordion>
+              </div>
+            </div>
           </div>
         </div>
-
-       
-
-        <div class="row">
-          <button class='btn col-sm-2 col-sm-offset-4' (click)="goBack()">Back</button>  
-        </div>
       </div>
-      
-
+    </div>
   </div>
 </div>

@@ -20,14 +20,14 @@
             </tr>
             <tr>
               <th >Feature</th>
-              <th class="pass">Passed</th>
-              <th class="fail">Failed</th>
-              <th class="skip">Skipped</th>
+              <th class="passed">Passed</th>
+              <th class="failed">Failed</th>
+              <th class="skipped">Skipped</th>
               <th class="pending">Pending</th>
               <th class="undefined">Undefined</th>
               <th >Total</th>
-              <th class="pass">Passed</th>
-              <th class="fail">Failed</th>
+              <th class="passed">Passed</th>
+              <th class="failed">Failed</th>
               <th >Total</th>
               <th >Duration</th>
               <th >Status</th>
@@ -36,17 +36,17 @@
 
       <tr *ngFor="let info of featureInfo" >
            <td class="feature" (click)=onSelect(info)><a>{{info.name | uppercase}}</a></td>
-           <td align="center"[class.pass]="info.stepPassCount > 0">{{info.stepPassCount }}</td>
-           <td align="center" [class.fail]="info.stepFailCount > 0">{{info.stepFailCount}}</td>
-           <td align="center" [class.skip]="info.stepSkipCount > 0">{{info.stepSkipCount }}</td>
+           <td align="center"[class.passed]="info.stepPassCount > 0">{{info.stepPassCount }}</td>
+           <td align="center" [class.failed]="info.stepFailCount > 0">{{info.stepFailCount}}</td>
+           <td align="center" [class.skipped]="info.stepSkipCount > 0">{{info.stepSkipCount }}</td>
             <td align="center" [class.pending]="info.stepPendingCount > 0">{{info.stepPendingCount }}</td>
              <td align="center" [class.undefined]="info.stepUndefinedCount > 0">{{info.stepUndefinedCount }}</td>
            <td align="center">{{info.totalSteps }}</td>
-           <td align="center" [class.pass]="info.scenarioPassCount > 0">{{info.scenarioPassCount }}</td>
-            <td align="center" [class.fail]="info.scenarioFailCount > 0">{{info.scenarioFailCount }}</td>
+           <td align="center" [class.passed]="info.scenarioPassCount > 0">{{info.scenarioPassCount }}</td>
+            <td align="center" [class.failed]="info.scenarioFailCount > 0">{{info.scenarioFailCount }}</td>
              <td align="center">{{info.totalScenarios }}</td>
            <td align="center">{{info.featureDuration}} minutes</td>
-           <td align="center" [class.fail]="info.featureStatus  === 'failed'" [class.pass]="info.featureStatus  === 'passed'">{{info.featureStatus | uppercase}}</td>
+           <td align="center" [ngClass]="info.featureStatus">{{info.featureStatus | uppercase}}</td>
 
           
         </tr>
