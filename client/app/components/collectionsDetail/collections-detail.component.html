@@ -7,20 +7,23 @@
         <loading-indicator></loading-indicator>
       </div>
       <div *ngSwitchCase="'active'">
+        <div class="panel panel-primary">
+          <div class="colection panel-heading">{{collection | uppercase}}</div>
+          <div class="panel-body">
+            <div *ngIf="runs !== undefined && runs.length === 0 ">
+              <h4> Oops, No Runs found </h4>
+            </div>
+            <div class="runs list-group">
+              <a class='list-group-item' *ngFor="let run of runs;let i = index;" (click)="onSelect(run)" [class.active]="run === selectedRun">
+                <span class="badge">{{i}} </span> <span>{{run}}</span>
 
-        <div *ngIf="runs !== undefined && runs.length === 0 ">
-          <h4> Oops, No Runs found </h4>
+                <!-- each run goes here -->
+              </a>
+
+            </div>
+            <button class='btn' (click)="goBack()">Back</button>
+          </div>
         </div>
-        <div class="runs list-group">
-          <a class='list-group-item' *ngFor="let run of runs;let i = index;" (click)="onSelect(run)" [class.active]="run === selectedRun">
-            <span class="badge">{{i}} </span> <span>{{run}}</span>
-
-            <!-- each run goes here -->
-          </a>
-
-        </div>
-        <button class='btn' (click)="goBack()">Back</button>
-
 
       </div>
     </div>
