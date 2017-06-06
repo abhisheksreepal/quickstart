@@ -75,6 +75,13 @@
             </div>
             <div class="elements inner-level indentation">
               <div class="element" *ngFor="let scenario of feature.elements">
+                <div class="jiras" *ngIf="feature.jiras">
+                      <b>Jiras:</b>
+                     <a href="#" *ngFor="let info of feature.jiras">
+                        {{info}}
+                     </a>
+                    </div>
+
                 <div class="tags">
                   <b>Tags:</b>
                   <a href="#" *ngFor="let info of scenario.tags">
